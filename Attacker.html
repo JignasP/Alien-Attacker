@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ALIEN ATTACK</title>
+	<link rel="icon" href="C:\Users\Jignas\Desktop\attacker\ufo.png" type="image/gif" sizes="16x16">
+	<style type="text/css">
+		
+		.mytablebg { 
+			background: url("C:/Users/Jignas/Desktop/attacker/bgimage.jpg") repeat; //add file location
+		} 
+	</style>
+</head> 
+<body bgcolor="black" onload="myFirstImg()"onkeydown='getKeyAndMove(event)'onkeypress='getKeyAndMove(event)'style="color:#FF4500;">
+<h1 align="center">ALIEN ATTACK</h1> 
+	
+
+		
+
+	<img id="spaceship" width="0" height="0" src="C:\Users\Jignas\Desktop\attacker\spaceshipnew.png">							
+	<img id="spaceshipbullet" width="0" height="0" src="C:\Users\Jignas\Desktop\attacker\bullet.png">
+	<img id="Alien" width="0" height="0" src="C:\Users\Jignas\Desktop\attacker\ufo.png" >
+	<img id="blast" width="0" height="0" src="C:\Users\Jignas\Desktop\attacker\new.png" >
+	<table align="center" >   
+        <tr>
+			<td bgcolor="black" width="100" align="center"  id= "scoreboard" align='center' style="color:white;">  score: </td>
+      <td bgcolor="black" width="100" align="center"  id= "timer" align='center' style="color:white;">  Timer: </td>
+		</tr>
+	</table>
+	<table  align="center" width=550 bgcolor="black"> 
+		
+		<tr>
+			<td><canvas class="mytablebg" align="center" id="myCanvas" width="550" height="470" style="color:black;"></canvas> </td>
+        </tr>
+    </table>
+    
+	
+	<script type="text/javascript">
+  
+    var x=30,alienlocx=0,spaceshiplocx=240,bulletlocx,temp;
+    var y=0,alienlocy=0,spaceshiplocy=397,bulletlocy;
+    var c=document.getElementById("myCanvas");
+    
+    var score=0;
+    //to genetrate aliens for every few milliseconds
+    var aliengenerateTimer=setInterval(alienGenerate ,2000);
+    var timeoutHandle;  
+    var bulletTimer;
+    var locx,locy;
+	  bulletlocx=spaceshiplocx+10;
+    bulletlocy=spaceshiplocy;
+    temp=bulletlocy;
+
+    //to shoot bullets on up arrow key press continuosly with specified time interval
+    function shoot(){
+           bulletTimer=setInterval(delay ,30);
+    }
+
+    //to display bullet movement by delaying 
+   	function delay(){
+    		 setTimeout(moveUp, 1);
+   	}
+   		
+
+	//initial page loading
+	function myFirstImg(){
+   	    var img=document.getElementById("spaceship");
+   	    var bleft=document.getElementById("left");
+        c.getContext("2d").drawImage(img,spaceshiplocx,spaceshiplocy,35,70);
+      	setScore();
+        countdown(2);
+   	}
+
+   	//to generate random number
+   	function generateRandomNumber(min, max) {
+   		var random_number = Math.random()* (max-min) + min ;
+        return Math.floor(random_number);
+	}
+ 
+ 	//to display aliens at random location
+   	function alienGenerate(){
+   		alienlocx=generateRandomNumber(0,500);
+    	alienlocy=generateRandomNumber(0,350);
+   		c.getContext("2d").drawImage(Alien,alienlocx,alienlocy,40,40);
+   		setTimeout(alienHide,2000,alienlocx,alienlocy);
+   	}
+
+	//to hide aliens 
+	function alienHide(x,y){
+		c.getContext("2d").clearRect(x,y,40,40);
+	}
+
+	//to move spaceship left on pressing left arrow key
+	function moveLeft(){
+    	if (temp!=spaceshiplocy) {
+			c.getContext("2d").clearRect(bulletlocx,temp,15,25);
+		}
+
+    	if((spaceshiplocx>=0)){
+       	    c.getContext("2d").clearRect(spaceshiplocx,spaceshiplocy,35,70);
+       		spaceshiplocx-=5;
+       		c.getContext("2d").drawImage(spaceship,spaceshiplocx,spaceshiplocy,35,70);
+    	} 
+
+    	bulletlocx=spaceshiplocx+10;
+    	temp=spaceshiplocy;    	
+    	bulletlocy=spaceshiplocy;
+     
+	}
+
+    //to move spaceship right on pressing right arrow key
+	function moveRight(){
+	    if (temp!=spaceshiplocy) {
+			c.getContext("2d").clearRect(bulletlocx,temp,15,25);
+		}
+
+        if((spaceshiplocx<=520)){
+       	    c.getContext("2d").clearRect(spaceshiplocx,spaceshiplocy,35,70);
+       		spaceshiplocx+=5;
+       		c.getContext("2d").drawImage(spaceship,spaceshiplocx,spaceshiplocy,35,70);
+    	} 
+        
+    	bulletlocx=spaceshiplocx+10;
+    	temp=spaceshiplocy; 
+    	bulletlocy=spaceshiplocy;
+	}
+
+	//to shoot  the bullets on key press
+	function moveUp(){
+
+		if((temp>=0)){
+			if (temp!=spaceshiplocy) {
+				c.getContext("2d").clearRect(bulletlocx,temp,15,25);
+			}
+       		temp=temp-45;
+       		c.getContext("2d").drawImage(spaceshipbullet,bulletlocx,temp,15,25);
+       		if((alienlocx<=bulletlocx)&&(alienlocx+40>=bulletlocx)){
+       			if((alienlocy+40>=temp-15)&&(temp-15>alienlocy)){
+       				collide();
+       			}
+       		}	
+    	} 
+    	else{
+    		c.getContext("2d").clearRect(bulletlocx,temp,15,25);
+    		temp=spaceshiplocy;
+    		clearInterval(bulletTimer);
+    	}
+	}
+
+	//on key press down
+	function getKeyAndMove(e){	
+       
+		var key_code=e.which||e.keyCode;
+		switch(key_code){
+			case 37: //left arrow key
+				moveLeft();
+				break;
+			case 38: //Up arrow key
+		     	clearInterval(bulletTimer);
+   				shoot();
+				break;
+			case 39: //right arrow key
+				moveRight();
+				break;
+		}			
+    }
+    //displaying score
+    function setScore(){
+    	document.getElementById("scoreboard").innerHTML = score;
+    }
+    //collission of bullet with alien
+    function collide(){
+    	
+    	score++;	
+    	setScore();
+    	c.getContext("2d").clearRect(alienlocx,alienlocy,40,40);
+      locx=alienlocx;
+      locy=alienlocy;
+    	c.getContext("2d").drawImage(blast,locx,locy,60,60);
+    	setTimeout(clearImage,55);
+      alienlocx=0;
+      alienlocy=450;
+    }
+    function clearImage(){
+    	c.getContext("2d").clearRect(locx,locy,60,60);
+
+    }
+
+    function countdown(minutes, seconds) {
+    var seconds = 60;
+    var mins = minutes;
+    //display of timer for every second
+    function tick() {
+      var counter = document.getElementById("timer");
+      var current_minutes = mins - 1;
+      seconds--;
+      counter.innerHTML =
+        current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+      if ((current_minutes==0)&&(seconds==0)){
+            alert("Game Over.... Your Score Is  "+score);
+           score=0;
+          countdown(2);
+          setScore();
+
+        }
+      if (seconds > 0) {
+        timeoutHandle = setTimeout(tick, 1000);
+      } else {
+
+
+        if (mins > 1) {
+          
+          setTimeout(function() {
+            countdown(mins - 1);
+          }, 1000);
+
+        }
+        
+      }
+    }
+    
+    tick();
+  }
+
+	</script>
+</body>
+</html>
