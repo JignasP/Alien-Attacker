@@ -6,7 +6,7 @@ It is currently not hosted on any website
 
 # How to play
 
-Download the attacker.html file and open it in a chrome or chorme based browser
+Download the attacker.html file and open it in chrome or chorme based browser
 
 Firefox is not yet supported.
 
