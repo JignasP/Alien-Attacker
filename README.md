@@ -16,3 +16,6 @@ There is no need to download the assets to play the game as the assets are pulle
 The assets have to be downloaded and the attacker.html should be modified to show the local asset directory 
 
 # Thanks!
+
+Every pull request with good and understandable code is welcomed. 
+:)
