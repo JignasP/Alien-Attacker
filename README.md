@@ -16,8 +16,10 @@ There is no need to download the assets to play the game as the assets are pulle
 
 This game runs for 120 seconds where a UFO appears on various positions on the screen and the player needs to shoot it from a spaceship.
 
-The left and right arrow keys are used for movement and the up arrow key is used for shooting the bullets.
+## Controls
 
+  🠅    Up arrow key is used for shooting the bullets
+<p>🠄  🠆 Left-Right arrow keys are used for movement </p>
 # Play Offline
 
 The assets have to be downloaded and the index.html should be modified so that the assets are pointed to the local asset directory 
@@ -25,5 +27,10 @@ The assets have to be downloaded and the index.html should be modified so that t
 # Thanks!
 
 Every pull request with good and understandable code is welcomed. 
-:)
+<p> :)
+</p>
 
+
+<p align="center">
+  <img src='https://img.shields.io/github/license/JignasP/Alien-Attacker?color=gr&style=for-the-badge'/>
+</p>
