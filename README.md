@@ -1,8 +1,8 @@
 # Alien-Attacker
 
-This is a web-browser based game
+This is a web-browser based Alien Invasion game
 
-you can play the game on : https://jignasp.github.io/Alien-Attacker/ and https://tintedfireglass.github.io/Alien-Attacker/
+you can play the game on : https://jignasp.github.io/Alien-Attacker/ 
 
 # How to play
 
