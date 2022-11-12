@@ -10,7 +10,7 @@ Download the index.html file and open it in your web browser
 or
 open the website from the links given above
 
-There is no need to download the assets to play the game as the assets are pulled from imgur
+There is no need to download the assets to play the game as the assets are pulled from githubassets
 
 # About The Game
 
