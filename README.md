@@ -21,7 +21,7 @@ This game runs for 120 seconds where a UFO appears on various positions on the s
   🠅    Up arrow key is used for shooting the bullets
 <p>🠄  🠆 Left-Right arrow keys are used for movement </p>
 
-# Play Offline
+## Play Offline
 
 The assets have to be downloaded and the index.html should be modified so that the assets are pointed to the local asset directory 
 
